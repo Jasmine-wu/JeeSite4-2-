@@ -4,9 +4,8 @@ node('MyNewNode') {
     }
 
     stage('maven编译打包') {
-        #!/bin/bash
         sh '''
-            
+            #!/bin/bash
             . ~/.bash_profile
             
             export pwd=`pwd`
