@@ -44,7 +44,7 @@ node('master') {
                   kill -9 $pid
                 fi
             }
-            ## 停止Tomcat
+            ## 停止Tomcat，传入参数：$tomcat_home保证kill掉的tomcat是jee这个项目的运行的tomcat，而不是把其他启动的tomcat kill掉
             killTomcat $tomcat_home
         '''
     }
