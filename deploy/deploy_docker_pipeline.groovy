@@ -3,6 +3,7 @@ pipeline {
         label 'MyNewNode'
     }
 
+
     environment {
         docker_image_name = 'jeesite4'
         docker_container_name = 'iJeesite4'
@@ -13,6 +14,14 @@ pipeline {
     }
 
     stages{
+        stage('init') {
+            steps {
+                script{
+                    def dockerPath = tool 'docker' //全局配置里的docker
+                    env.PATH = "${dockerPath}:${env.PATH}" //添加了系统环境变量上
+                }
+            }
+        }
         stage('同步源码') {
             steps {
                 git url:'git@github.com:Jasmine-wu/JeeSite4-2-.git', branch:"$params.branch"
