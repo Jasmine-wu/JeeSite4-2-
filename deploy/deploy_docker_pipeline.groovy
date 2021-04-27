@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'master'
+        label 'MyNewNode'
     }
 
     environment {
@@ -15,13 +15,13 @@ pipeline {
     stages{
         stage('同步源码') {
             steps {
-                git url:'git@gitee.com:11547299/jeesite4.git', branch:"$params.branch"
+                git url:'git@github.com:Jasmine-wu/JeeSite4-2-.git', branch:"$params.branch"
             }
         }
 
         stage('设定配置文件'){
             steps{
-                sh '''
+                sh '''#!/bin/bash
                     . ~/.bash_profile
             
                     export os_type=`uname`
@@ -43,7 +43,7 @@ pipeline {
 
         stage('Maven 编译'){
             steps {
-                sh '''
+                sh '''#!/bin/bash
                     . ~/.bash_profile 
                     
                     cd ${WORKSPACE}/root
@@ -81,7 +81,7 @@ pipeline {
 
         stage('生成新的Docker Image'){
             steps {
-                sh '''
+                sh '''#!/bin/bash
                     cd ${WORKSPACE}/web/bin/docker
                     rm -f web.war
                     cp ${WORKSPACE}/web/target/web.war .
@@ -92,7 +92,7 @@ pipeline {
 
         stage('启动新Docker实例'){
             steps {
-                sh '''
+                sh '''#!/bin/bash
                     docker run -d --name $docker_container_name -p 8981:8980 $docker_image_name
                 '''
             }
