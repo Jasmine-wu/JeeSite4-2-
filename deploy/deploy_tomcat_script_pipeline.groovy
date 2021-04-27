@@ -60,6 +60,7 @@ node('MyNewNode') {
 
     stage('部署新的war包') {
         sh '''#!/bin/bash
+            echo "tomcat home path: $tomcat_home "
             cp web/target/web.war $tomcat_home/webapps/
             cd $tomcat_home/webapps
             mv web.war ROOT.war
