@@ -46,4 +46,4 @@ cp $PROJ_PATH/web/target/web.war .
 docker build -t $docker_image_name .
 
 ## 启动新的docker image 暴露端口 8981
-docker run -d --name $docker_container_name -p 8981:8980 $docker_image_name
+docker run -d --name $docker_container_name -p 8981:8980 --link mysql $docker_image_name
